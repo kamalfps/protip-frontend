@@ -1,24 +1,25 @@
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL  'httpsprotip-backend.onrender.com';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://protip-backend.onrender.com';
 
 export function getAuthHeaders() {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('token');
     return {
-      'Content-Type' 'applicationjson',
-      'Authorization' token  `Bearer ${token}`  '',
+      'Content-Type': 'application/json',
+      'Authorization': token ? `Bearer ${token}` : '',
     };
   }
-  return { 'Content-Type' 'applicationjson' };
+  return { 'Content-Type': 'application/json' };
 }
 
-export async function fetchWithAuth(endpoint string, options RequestInit = {}) {
+export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
   const headers = { ...getAuthHeaders(), ...options.headers };
   const response = await fetch(`${BACKEND_URL}${endpoint}`, { ...options, headers });
   
   if (response.status === 401) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
-      window.location.href = 'login';
+      localStorage.removeItem('username');
+      window.location.href = '/login';
     }
   }
   return response;
