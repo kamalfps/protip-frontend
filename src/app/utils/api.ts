@@ -1,21 +1,20 @@
-const BACKEND_URL = "https" + "://" + "protip-backend.onrender.com";
+const BACKEND_URL = "https://protip-backend.onrender.com";
 
 export function getAuthHeaders() {
+  const headers = {} as any;
+  
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("token");
+    
+    headers["Content-Type"] = "application/json";
     if (token) {
-      return {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      };
+      headers["Authorization"] = "Bearer " + token;
     }
-    return {
-      "Content-Type": "application/json"
-    };
+    return headers;
   }
-  return {
-    "Content-Type": "application/json"
-  };
+  
+  headers["Content-Type"] = "application/json";
+  return headers;
 }
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
