@@ -54,7 +54,7 @@ export default function WidgetPage({ params }: { params: { userId: string } }) {
   }, [isActive, alertQueue]);
 
   if (!isActive || !currentAlert) {
-    return <div className="w-screen h-screen bg-transparent"></div>;
+    return <div className="w-screen h-screen bg-transparent overflow-hidden"></div>;
   }
 
   return (
