@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function AuthPage() {
+export default function StandaloneLoginPage() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
@@ -31,7 +31,7 @@ export default function AuthPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong');
+        throw new Error(data.error || 'Authentication mismatch');
       }
 
       localStorage.setItem('token', data.token);
@@ -45,16 +45,16 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden text-white">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
+    <div className="fixed inset-0 z-[9999] bg-slate-950 flex items-center justify-center p-4 text-white overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-            {isLogin ? 'Welcome Back' : 'Create Creator Account'}
+            {isLogin ? 'ProTip Command Console' : 'Register Creator Node'}
           </h1>
           <p className="text-slate-400 mt-2 text-sm">
-            {isLogin ? 'Manage your live stream overlays' : 'Start accepting fee-free tips in minutes'}
+            {isLogin ? 'Access your alert widget matrix' : 'Deploy live overlays instantly'}
           </p>
         </div>
 
@@ -66,33 +66,33 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Username</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Brand Username</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
-              placeholder="Your brand handle"
+              placeholder="e.g. kamalzzz"
               required
             />
           </div>
 
           {!isLogin && (
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Email Address</label>
+              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Email Node</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
-                placeholder="you@example.com"
+                placeholder="developer@protip.live"
                 required
               />
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Password</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Security Key (Password)</label>
             <input
               type="password"
               value={password}
@@ -108,7 +108,7 @@ export default function AuthPage() {
             disabled={loading}
             className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg disabled:opacity-50"
           >
-            {loading ? 'Authenticating...' : isLogin ? 'Sign In' : 'Register Now'}
+            {loading ? 'Validating Token Node...' : isLogin ? 'Initialize Dashboard' : 'Deploy Account'}
           </button>
         </form>
 
@@ -118,7 +118,7 @@ export default function AuthPage() {
             onClick={() => setIsLogin(!isLogin)}
             className="text-purple-400 hover:underline font-medium"
           >
-            {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Log in'}
+            {isLogin ? "Need a workspace? Register here" : 'Existing account? Initialize session'}
           </button>
         </div>
       </div>
