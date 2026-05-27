@@ -62,7 +62,7 @@ export default function WidgetPage({ params }: { params: { userId: string } }) {
       <div className="flex flex-col items-center text-center animate-bounce drop-shadow-2xl">
         {currentAlert.image && (
           <img 
-            src={currentAlert.image} 
+            src={currentAlert image} 
             alt="Alert Animation" 
             className="w-64 h-64 object-contain mb-4 drop-shadow-2xl"
           />
